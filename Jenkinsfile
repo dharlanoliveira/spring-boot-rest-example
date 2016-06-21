@@ -1,9 +1,9 @@
 parallel 'integration-tests':{
-    node('mvn-3.3'){
+    node{
         echo 'maven'
     }
 }, 'functional-tests':{
-    node('selenium'){
+    node{
         echo 'selenium'
     }
 }
