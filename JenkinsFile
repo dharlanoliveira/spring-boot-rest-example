@@ -1,9 +1,30 @@
-parallel 'integration-tests':{
-    node{
-        echo 'maven'
+node('node') {
+
+    def err = null
+    currentBuild.result = "SUCCESS"
+
+    try {
+
+       stage 'Checkout'
+
+            checkout scm
+
+
+       stage 'Build Docker'
+
+            sh './dockerBuild.sh'
+
+    } catch (err) {
+
+        currentBuild.result = "FAILURE"
+
+        mail body: "project build error: ${err}" ,
+        from: 'xxxx@yyyy.com',
+        replyTo: 'yyyy@yyyy.com',
+        subject: 'project build failed',
+        to: 'zzzz@yyyyy.com'
+
+        throw err
     }
-}, 'functional-tests':{
-    node{
-        echo 'selenium'
-    }
+
 }
