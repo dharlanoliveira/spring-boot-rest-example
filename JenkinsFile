@@ -1,6 +1,5 @@
 node('node') {
 
-    def err = null
     currentBuild.result = "SUCCESS"
 
     try {
@@ -14,17 +13,17 @@ node('node') {
 
             sh './dockerBuild.sh'
 
-    } catch (err) {
+    } catch (er) {
 
         currentBuild.result = "FAILURE"
 
-        mail body: "project build error: ${err}" ,
+        mail body: "project build error: ${er}" ,
         from: 'xxxx@yyyy.com',
         replyTo: 'yyyy@yyyy.com',
         subject: 'project build failed',
         to: 'zzzz@yyyyy.com'
 
-        throw err
+        throw er
     }
 
 }
