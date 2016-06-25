@@ -11,7 +11,7 @@ node('swarm') {
 
        stage 'Build Docker'
 
-            sh './dockerBuild.sh'
+            sh 'docker run hello-world'
 
     } catch (er) {
 
