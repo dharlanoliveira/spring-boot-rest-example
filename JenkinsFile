@@ -4,14 +4,14 @@ node('swarm') {
 
     try {
 
-       stage 'Checkout'
+       stage 'Git'
 
             checkout scm
 
 
-       stage 'Build Docker'
+       stage 'Build Projeto'
 
-            sh 'docker run hello-world'
+            sh './build.sh'
 
     } catch (er) {
 
