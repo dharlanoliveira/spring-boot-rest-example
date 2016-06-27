@@ -4,11 +4,6 @@ node('swarm') {
 
     try {
 
-       stage 'Git'
-
-            checkout scm
-
-
        stage 'Build Projeto'
             sh 'chmod a+x build.sh'
             sh './build.sh'
