@@ -11,8 +11,15 @@ node('swarm') {
 
        stage 'Build Projeto'
 
-            sh 'chmod a+x build.sh'
-            sh './build.sh'
+            parallel (
+                cliente: { node {
+                    sh "echo building on windows now"
+                }},
+                servico: { node {
+                    sh 'chmod a+x build.sh'
+                    sh './build.sh'
+                }}
+            )
 
     } catch (er) {
 
