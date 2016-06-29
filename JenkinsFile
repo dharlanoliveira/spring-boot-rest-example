@@ -4,18 +4,15 @@ node('swarm') {
 
     try {
 
-       stage 'Git'
-
-            checkout scm
-
-
        stage 'Build Projeto'
 
             parallel (
                 cliente: { node {
+                    checkout scm
                     sh "echo building on windows now"
                 }},
                 servico: { node {
+                    checkout scm
                     sh 'chmod a+x build.sh'
                     sh './build.sh'
                 }}
