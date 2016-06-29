@@ -3,20 +3,28 @@ node('swarm') {
     currentBuild.result = "SUCCESS"
 
     try {
+        stage "Build do projeto"
+        def branches = [:]
+        branches["cliente"] = {
+                stage "Stage build do cliente"
+                    node('swarm') {
+                        checkout scm
+                        echo  'Starting sleep'
+                        sleep 10
+                        echo  'Finished sleep'
+                    }
+            }
 
-       stage 'Build Projeto'
+        branches["servico"] = {
+                stage "Stage build do serviço"
+                    node('swarm') {
+                        checkout scm
+                        sh 'chmod a+x build.sh'
+                        sh './build.sh'
+                    }
+            }
 
-            parallel (
-                cliente: { node('swarm') {
-                    checkout scm
-                    sh "echo building on windows now"
-                }},
-                servico: { node('swarm') {
-                    checkout scm
-                    sh 'chmod a+x build.sh'
-                    sh './build.sh'
-                }}
-            )
+        parallel branches
 
     } catch (er) {
 
