@@ -6,7 +6,6 @@ node('swarm') {
         stage "Build do projeto"
         def branches = [:]
         branches["cliente"] = {
-                stage "Stage build do cliente"
                     node('swarm') {
                         checkout scm
                         echo  'Starting sleep'
@@ -16,7 +15,6 @@ node('swarm') {
             }
 
         branches["servico"] = {
-                stage "Stage build do serviço"
                     node('swarm') {
                         checkout scm
                         sh 'chmod a+x build.sh'
