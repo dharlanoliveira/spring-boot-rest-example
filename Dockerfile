@@ -1,5 +1,4 @@
 FROM frolvlad/alpine-oraclejdk8:slim
-VOLUME /tmp
 RUN ls -la
 ADD ./target/spring-boot-rest-example-0.3.0.jar app.jar
 RUN sh -c 'touch /app.jar'
